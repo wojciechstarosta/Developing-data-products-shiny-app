@@ -1,0 +1,51 @@
+---
+title: "Assignment_shiny_app"
+author: "Wojciech Starosta"
+date: "9.10.2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Reproducible Pitch Presentation
+
+This is an presentation for Reproducible Pitch Assignment. It will introduce how parametrization of decision tree influence obtained results. We will focus on airquality data using two packages:
+
+```{r packages, echo = TRUE}
+library(shiny)
+library(rpart)
+```
+
+Shiny app:
+(https://wojciechstarosta.shinyapps.io/Developing-data-products-shiny-app/)
+
+Source Code:
+(https://github.com/wojciechstarosta/Developing-data-products-shiny-app)
+
+
+## Data summary
+
+```{r airquality, echo = TRUE}
+summary(airquality)
+```
+
+## Interactive elements
+
+In this tool You can check how parametrization of elements below influence final tree structure:
+
+- minimal value of observation in a leaf (used to check if tree can divide further),
+- maximum depth of a tree (used to set how deep tree should grow),
+- number of cross-validations (used to obtain cross-validation error for overfitting issue),
+- estimation method (you can choose between Anova and Poisson).
+
+## Predictive methodology: CART
+
+Estimation method used in this exercise is CART (package rpart). Standard output is as follows:
+
+```{r tree, echo = TRUE}
+tree1<-rpart(formula=Ozone ~ .,airquality, method="anova", cp=0,
+             maxdepth=5,minbucket=10, xval=10)
+plot(tree1, uniform=T, compress=T);text(tree1, use.n = T, all=F)
+```
