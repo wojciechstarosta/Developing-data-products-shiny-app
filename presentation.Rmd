@@ -16,6 +16,7 @@ This is an presentation for Reproducible Pitch Assignment. It will introduce how
 ```{r packages, echo = TRUE}
 library(shiny)
 library(rpart)
+library(rpart.plot)
 ```
 
 Shiny app:
@@ -47,5 +48,5 @@ Estimation method used in this exercise is CART (package rpart). Standard output
 ```{r tree, echo = TRUE}
 tree1<-rpart(formula=Ozone ~ .,airquality, method="anova", cp=0,
              maxdepth=5,minbucket=10, xval=10)
-plot(tree1, uniform=T, compress=T);text(tree1, use.n = T, all=F)
+prp(tree1, box.palette = "Reds", tweak = 1.2)
 ```
